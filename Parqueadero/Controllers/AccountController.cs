@@ -2,6 +2,7 @@
 using Parqueadero.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Parqueadero.Controllers
 {
@@ -18,6 +19,7 @@ namespace Parqueadero.Controllers
             _accountService = accountService;
         }
 
+        [AllowAnonymous]
         [HttpGet("Login")]
         public async Task<IActionResult> Login(string userName, string password)
         {
