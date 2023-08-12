@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vsgmQUNnPKStwYY596UegS9d5dPG4CUwrjTkiRGsGUZ3EPAtmJdKx3VBxHu2meCmJnNF6w/YGGLV+iJNTCnYhA==",
+  "dgSpecHash": "emQ3A6m1gR7w7V6qX/riEHDeOsRYmWOvIhqG0Kz3W7nPJLrjgn+kx5CEk2hWIvXsHGU44H/W2pJcw7jZeW0i+g==",
   "success": true,
   "projectFilePath": "C:\\CFA\\curso xamarin repo\\apiParqueadero\\Parqueadero\\Parqueadero.csproj",
   "expectedPackageFiles": [
@@ -59,6 +59,7 @@
     "C:\\Users\\samontoya\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\samontoya\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\samontoya\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\samontoya\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.20\\microsoft.aspnetcore.authentication.jwtbearer.6.0.20.nupkg.sha512",
     "C:\\Users\\samontoya\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "C:\\Users\\samontoya\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\samontoya\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",
