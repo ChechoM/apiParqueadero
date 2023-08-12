@@ -5,7 +5,7 @@
 namespace Parqueadero.Migrations
 {
     /// <inheritdoc />
-    public partial class migracionDB : Migration
+    public partial class DBMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

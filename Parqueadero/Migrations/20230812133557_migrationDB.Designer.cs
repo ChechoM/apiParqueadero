@@ -11,8 +11,8 @@ using Parqueadero.Data;
 namespace Parqueadero.Migrations
 {
     [DbContext(typeof(PqDBContext))]
-    [Migration("20230812040052_migracionDB")]
-    partial class migracionDB
+    [Migration("20230812133557_migrationDB")]
+    partial class migrationDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
