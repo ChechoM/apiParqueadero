@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using Parqueadero.Services;
 
-namespace HolaMundoAPI.API.Services
+namespace Parqueadero.API.Services
 {
     public class AccountService : IAccountService
     {

@@ -1,11 +1,11 @@
 ﻿using Parqueadero.Data;
 using Parqueadero.Services;
-using HolaMundoAPI.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Parqueadero.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PqDBContext>(options =>
