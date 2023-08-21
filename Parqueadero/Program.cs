@@ -23,6 +23,7 @@ builder.Services.AddScoped<SeedDb>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IReporteService, ReportesService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 
 builder.Services.AddSwaggerGen(option =>
 {

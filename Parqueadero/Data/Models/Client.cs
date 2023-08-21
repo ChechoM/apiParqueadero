@@ -40,7 +40,7 @@ namespace Parqueadero.Data.Models
         public string Latitud { get; set; }
         public long UserId { get; set; }
         [ForeignKey(nameof(UserId))]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
     }
 }

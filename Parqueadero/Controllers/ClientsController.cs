@@ -19,13 +19,16 @@ namespace Parqueadero.Controllers
     public class ClientsController : ControllerBase
     {
         private readonly PqDBContext _context;
+        private readonly IClientService _clientService;
 
-        public ClientsController(PqDBContext context)
+        public ClientsController(PqDBContext context, IClientService clientService)
         {
             _context = context;
+            _clientService = clientService;
         }
 
         // GET: api/Clients
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClient()
         {
@@ -99,6 +102,26 @@ namespace Parqueadero.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetClient", new { id = client.Id }, client);
+        }
+
+        // POST: api/Clients
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("ValidaPermisos")]
+        public async Task<ActionResult<UserRole>> ValidaPermisos(long id)
+        {
+            if (_context.Client == null)
+            {
+                return Problem("Entity set 'PqDBContext.Client'  is null.");
+            }
+
+            UserRole respuesta =  this._clientService.ValidaPermisos(id);
+
+            if (respuesta == null)
+            {
+                return Problem("Entity set 'PqDBContext.Client'  is null.");
+            }
+            return respuesta;
+
         }
 
 
