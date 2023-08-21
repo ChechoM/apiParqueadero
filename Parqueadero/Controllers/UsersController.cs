@@ -31,7 +31,7 @@ namespace Parqueadero.Controllers
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            return await _context.User.Include(u => u.Role).ToListAsync();
         }
 
         // GET: api/Users/5

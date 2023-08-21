@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Parqueadero.API.Services;
+using Parqueadero.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PqDBContext>(options =>
@@ -21,6 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<SeedDb>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IReporteService, ReportesService>();
 
 builder.Services.AddSwaggerGen(option =>
 {

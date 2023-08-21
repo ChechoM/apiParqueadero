@@ -19,7 +19,7 @@ namespace Parqueadero.Data.Models
 
         public long RoleId { get; set; }
 
-        [ForeignKey("RoleId")]
+        [ForeignKey (nameof(RoleId))]
         public virtual UserRole Role { get; set; }
     }
 

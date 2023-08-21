@@ -2,70 +2,65 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Parqueadero.Data;
-using Parqueadero.Data.Dto;
 using Parqueadero.Data.Models;
-using Parqueadero.Services.Interfaces;
 
 namespace Parqueadero.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-    public class ClientsController : ControllerBase
+    public class VisitasController : ControllerBase
     {
         private readonly PqDBContext _context;
 
-        public ClientsController(PqDBContext context)
+        public VisitasController(PqDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clients
+        // GET: api/Visitas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> GetClient()
+        public async Task<ActionResult<IEnumerable<Visita>>> GetVisita()
         {
-          if (_context.Client == null)
+          if (_context.Visita == null)
           {
               return NotFound();
           }
-            return await _context.Client.Include(x=> x.User).ToListAsync();
+            return await _context.Visita.Include(x=> x.Client).ToListAsync();
         }
-       
 
-        // GET: api/Clients/5
+        // GET: api/Visitas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClient(long id)
+        public async Task<ActionResult<Visita>> GetVisita(long id)
         {
-          if (_context.Client == null)
+          if (_context.Visita == null)
           {
               return NotFound();
           }
-            var client = await _context.Client.FindAsync(id);
+            var visita = await _context.Visita.FindAsync(id);
 
-            if (client == null)
+            if (visita == null)
             {
                 return NotFound();
             }
 
-            return client;
+            return visita;
         }
 
-        // PUT: api/Clients/5
+        // PUT: api/Visitas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClient(long id, Client client)
+        public async Task<IActionResult> PutVisita(long id, Visita visita)
         {
-            if (id != client.Id)
+            if (id != visita.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(client).State = EntityState.Modified;
+            _context.Entry(visita).State = EntityState.Modified;
 
             try
             {
@@ -73,7 +68,7 @@ namespace Parqueadero.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClientExists(id))
+                if (!VisitaExists(id))
                 {
                     return NotFound();
                 }
@@ -86,45 +81,44 @@ namespace Parqueadero.Controllers
             return NoContent();
         }
 
-        // POST: api/Clients
+        // POST: api/Visitas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Client>> PostClient(Client client)
+        public async Task<ActionResult<Visita>> PostVisita(Visita visita)
         {
-          if (_context.Client == null)
+          if (_context.Visita == null)
           {
-              return Problem("Entity set 'PqDBContext.Client'  is null.");
+              return Problem("Entity set 'PqDBContext.Visita'  is null.");
           }
-            _context.Client.Add(client);
+            _context.Visita.Add(visita);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClient", new { id = client.Id }, client);
+            return CreatedAtAction("GetVisita", new { id = visita.Id }, visita);
         }
 
-
-        // DELETE: api/Clients/5
+        // DELETE: api/Visitas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClient(long id)
+        public async Task<IActionResult> DeleteVisita(long id)
         {
-            if (_context.Client == null)
+            if (_context.Visita == null)
             {
                 return NotFound();
             }
-            var client = await _context.Client.FindAsync(id);
-            if (client == null)
+            var visita = await _context.Visita.FindAsync(id);
+            if (visita == null)
             {
                 return NotFound();
             }
 
-            _context.Client.Remove(client);
+            _context.Visita.Remove(visita);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ClientExists(long id)
+        private bool VisitaExists(long id)
         {
-            return (_context.Client?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Visita?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
