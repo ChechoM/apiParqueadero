@@ -100,8 +100,8 @@ public class SeedDb
             HorarioCierre = DateTime.Now.AddHours(this.random.Next(0, 24)),
             Techo = Convert.ToBoolean(this.random.Next(-1, 0)),
             ValorHora = this.random.Next(1000, 5000),
-            Latitud = $"6.2549{this.random.Next(Convert.ToInt32(400267), Convert.ToInt32(900267))}29888",
-            Longitud = $"-75.5814{ this.random.Next(Convert.ToInt32(40627), Convert.ToInt32(90627))}68243"
+            Latitud = $"6.2{this.random.Next(Convert.ToInt32(5494), Convert.ToInt32(95494))}0026729888",
+            Longitud = $"-75.5{ this.random.Next(Convert.ToInt32(814), Convert.ToInt32(90627))}40627"
         });
 
     }
