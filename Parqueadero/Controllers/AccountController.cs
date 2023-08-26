@@ -34,6 +34,7 @@ namespace Parqueadero.Controllers
 
             var userDto = new UserDto
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Role = user.Role,
                 Token = token

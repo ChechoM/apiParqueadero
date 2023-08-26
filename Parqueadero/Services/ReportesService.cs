@@ -27,7 +27,7 @@ namespace Parqueadero.Services
 
                 foreach (var item in ListaClientes)
                 {
-                    int promedio = PromedioCalificacion(item.Id);
+                    int promedio = this._context.Calificaciones.Where(w => w.Visita.ClientId == item.Id).Sum(s => s.Calificacion) / this._context.Calificaciones.Where(w => w.Visita.ClientId == item.Id).Count();
                                         
                     if (promedio ==5 || promedio  > 3)
                     {
@@ -66,9 +66,10 @@ namespace Parqueadero.Services
 
                 List<ReporteVisitasDto> reporte = this._context.Client.Where(x => x.UserId == idUser).Select(x => new ReporteVisitasDto
                 {
+                    id = x.Id,
                     CantidadVisitas = this._context.Visita.Where(w => w.ClientId == x.Id).Count(),
                     Nombre = x.Name,
-                    PromedioCalificacion = this.PromedioCalificacion(x.Id),
+                    PromedioCalificacion = this._context.Calificaciones.Where(w=> w.Visita.ClientId == x.Id).Sum(s=> s.Calificacion) / this._context.Calificaciones.Where(w => w.Visita.ClientId == x.Id).Count(),
                     Recaudo = Convert.ToInt32(x.ValorHora * (this._context.Visita.Where(w => w.ClientId == x.Id).Count()))
 
                 }).ToList();
@@ -80,22 +81,6 @@ namespace Parqueadero.Services
                 return null;
             }
             
-        }
-
-        public int PromedioCalificacion(long Id)
-        {
-            try
-            {
-                long idVisita = this._context.Visita.Where(x => x.ClientId == Id).Select(x => x.Id).FirstOrDefault();
-                int resultado = this._context.Calificaciones.Where(w => w.IdVisita == idVisita).Where(w => w.Calificacion != 0).Sum(s => s.Calificacion)
-                            / this._context.Calificaciones.Where(w => w.IdVisita == idVisita).Count();
-
-                return resultado;
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
         }
     }
 }

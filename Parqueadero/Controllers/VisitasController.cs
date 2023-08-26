@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Parqueadero.Data;
+using Parqueadero.Data.Dto;
 using Parqueadero.Data.Models;
 using Parqueadero.Services.Interfaces;
 
@@ -101,16 +102,23 @@ namespace Parqueadero.Controllers
         // POST: api/Visitas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Visita>> PostVisita(Visita visita)
+        public async Task<ActionResult<Visita>> PostVisita(VisitaDto visita)
         {
           if (_context.Visita == null)
           {
               return Problem("Entity set 'PqDBContext.Visita'  is null.");
           }
-            _context.Visita.Add(visita);
+            Visita visitaobj = new Visita()
+            {
+                ClientId = visita.ClientId,
+                CodigoVisita = visita.CodigoVisita,
+                Client = _context.Client.Where(x => x.Id == visita.ClientId).FirstOrDefault()
+            };
+
+            _context.Visita.Add(visitaobj);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVisita", new { id = visita.Id }, visita);
+            return CreatedAtAction("GetVisita", new { id = visitaobj.Id }, visitaobj);
         }
 
         // DELETE: api/Visitas/5

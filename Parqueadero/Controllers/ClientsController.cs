@@ -91,16 +91,35 @@ namespace Parqueadero.Controllers
         // POST: api/Clients
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Client>> PostClient(Client client)
+        public async Task<ActionResult<Client>> PostClient(ClienteDto client)
         {
           if (_context.Client == null)
           {
               return Problem("Entity set 'PqDBContext.Client'  is null.");
           }
-            _context.Client.Add(client);
+            Client cliente = new Client()
+            {
+                Disponibilidad = client.Disponibilidad,
+                Direccion = client.Direccion,
+                Descripcion = client.Descripcion,
+                Datafono = client.Datafono,
+                HorarioAbre = client.HorarioAbre,
+                HorarioCierre = client.HorarioCierre,
+                Latitud = client.Latitud,
+                Longitud = client.Longitud,
+                Name = client.Name,
+                Nit = client.Nit,
+                Techo = client.Techo,
+                UserId = client.UserId,
+                ValorHora = client.ValorHora,
+                User = _context.User.Where(x=> x.Id == client.UserId).FirstOrDefault()
+
+            };
+
+            _context.Client.Add(cliente);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClient", new { id = client.Id }, client);
+            return CreatedAtAction("GetClient", new { id = cliente.Id }, cliente);
         }
 
         // POST: api/Clients
