@@ -15,7 +15,6 @@ namespace Parqueadero.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ClientsController : ControllerBase
     {
         private readonly PqDBContext _context;
@@ -38,16 +37,16 @@ namespace Parqueadero.Controllers
           }
             return await _context.Client.Include(x=> x.User).ToListAsync();
         }
-       
+
 
         // GET: api/Clients/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Client>> GetClient(long id)
         {
-          if (_context.Client == null)
-          {
-              return NotFound();
-          }
+            if (_context.Client == null)
+            {
+                return NotFound();
+            }
             var client = await _context.Client.FindAsync(id);
 
             if (client == null)

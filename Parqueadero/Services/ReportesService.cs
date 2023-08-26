@@ -59,18 +59,19 @@ namespace Parqueadero.Services
              
         }       
 
-        public  ReporteVisitasDto ReporteVisitasPorCliente(long idCliente)
+        public  List<ReporteVisitasDto> ReporteVisitasPorCliente(long idUser)
         {
             try
             {
-                int cantidadVisitas = this._context.Calificaciones.Where(w => w.Visita.ClientId == idCliente).Count();
-                ReporteVisitasDto reporte = this._context.Visita.Where(x => x.ClientId == idCliente).Select(x => new ReporteVisitasDto
+
+                List<ReporteVisitasDto> reporte = this._context.Client.Where(x => x.UserId == idUser).Select(x => new ReporteVisitasDto
                 {
-                    CantidadVisitas = cantidadVisitas,
-                    Nombre = x.Client.Name,
-                    PromedioCalificacion = this.PromedioCalificacion(idCliente),
-                    Recaudo = x.Client.ValorHora * cantidadVisitas
-                }).First();
+                    CantidadVisitas = this._context.Visita.Where(w => w.ClientId == x.Id).Count(),
+                    Nombre = x.Name,
+                    PromedioCalificacion = this.PromedioCalificacion(x.Id),
+                    Recaudo = Convert.ToInt32(x.ValorHora * (this._context.Visita.Where(w => w.ClientId == x.Id).Count()))
+
+                }).ToList();
 
                 return reporte;
             }
@@ -85,8 +86,9 @@ namespace Parqueadero.Services
         {
             try
             {
-                int resultado = this._context.Calificaciones.Where(w => w.Visita.ClientId == Id).Where(w => w.Calificacion != 0).Sum(s => s.Calificacion)
-                            / this._context.Calificaciones.Where(w => w.Visita.ClientId == Id).Count();
+                long idVisita = this._context.Visita.Where(x => x.ClientId == Id).Select(x => x.Id).FirstOrDefault();
+                int resultado = this._context.Calificaciones.Where(w => w.IdVisita == idVisita).Where(w => w.Calificacion != 0).Sum(s => s.Calificacion)
+                            / this._context.Calificaciones.Where(w => w.IdVisita == idVisita).Count();
 
                 return resultado;
             }

@@ -24,6 +24,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IReporteService, ReportesService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<ICalificacionesService, CalificacionesService>();
+builder.Services.AddScoped<IVisitaService, VisitaService>();
 
 builder.Services.AddSwaggerGen(option =>
 {

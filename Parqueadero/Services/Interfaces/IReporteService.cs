@@ -5,7 +5,7 @@ namespace Parqueadero.Services.Interfaces
     public interface IReporteService
     {
 
-         ReporteVisitasDto ReporteVisitasPorCliente(long idCliente);
+        List<ReporteVisitasDto> ReporteVisitasPorCliente(long idCliente);
          ReporteCalificacionDto ReporteCalificacion();
     }
 }

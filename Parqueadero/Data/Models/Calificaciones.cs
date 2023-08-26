@@ -12,6 +12,6 @@ namespace Parqueadero.Data.Models
         public int Calificacion { get; set; }
         public long IdVisita { get; set; }
         [ForeignKey(nameof(IdVisita))]
-        public virtual Visita Visita { get; set; }
+        public virtual Visita? Visita { get; set; }
     }
 }

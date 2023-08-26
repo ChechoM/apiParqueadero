@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Parqueadero.Data;
 using Parqueadero.Data.Models;
+using Parqueadero.Services.Interfaces;
 
 namespace Parqueadero.Controllers
 {
@@ -16,9 +17,12 @@ namespace Parqueadero.Controllers
     {
         private readonly PqDBContext _context;
 
-        public VisitasController(PqDBContext context)
+        private readonly IVisitaService _IvisitaService;
+
+        public VisitasController(PqDBContext context, IVisitaService visita)
         {
             _context = context;
+            _IvisitaService = visita;
         }
 
         // GET: api/Visitas
@@ -30,6 +34,19 @@ namespace Parqueadero.Controllers
               return NotFound();
           }
             return await _context.Visita.Include(x=> x.Client).ToListAsync();
+        }
+
+        [HttpGet("ValidarVisita")]
+        public async Task<ActionResult> ValidarVisita(long id)
+        {
+            if (_context.Visita == null)
+            {
+                return NotFound();
+            }
+            var respuesta = _IvisitaService.ValidarVisita(id);
+            
+                return Ok(respuesta);
+            
         }
 
         // GET: api/Visitas/5

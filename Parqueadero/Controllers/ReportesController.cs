@@ -33,8 +33,8 @@ namespace Parqueadero.Controllers
         }
 
         // GET: api/Clients/ReporteVisitasPorCliente
-        [HttpPost("ReporteVisitasPorCliente")]
-        public async Task<ActionResult<ReporteVisitasDto>> ReporteVisitasPorCliente(int id)
+        [HttpPost("ReporteVisitasPorUsuario")]
+        public async Task<ActionResult<List<ReporteVisitasDto>>> ReporteVisitasPorUsuario(int id)
         {
             var respuesta = _ReporteService.ReporteVisitasPorCliente(id);
             if (respuesta == null)

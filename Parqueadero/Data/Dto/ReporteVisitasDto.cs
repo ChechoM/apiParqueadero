@@ -3,8 +3,8 @@
     public class ReporteVisitasDto
     {
         public string Nombre { get; set; }
-        public double Recaudo { get; set; }
-        public double PromedioCalificacion { get; set; }
-        public int CantidadVisitas { get; set; }
+        public int Recaudo { get; set; }
+        public int PromedioCalificacion { get; set; }
+        public double CantidadVisitas { get; set; }
     }
 }

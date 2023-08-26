@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Parqueadero.Data;
+using Parqueadero.Data.Dto;
 using Parqueadero.Data.Models;
+using Parqueadero.Services;
+using Parqueadero.Services.Interfaces;
 
 namespace Parqueadero.Controllers
 {
@@ -15,10 +18,12 @@ namespace Parqueadero.Controllers
     public class CalificacionesController : ControllerBase
     {
         private readonly PqDBContext _context;
+        private readonly ICalificacionesService _calificacionesService;
 
-        public CalificacionesController(PqDBContext context)
+        public CalificacionesController(PqDBContext context, ICalificacionesService calificacionesService)
         {
             _context = context;
+            _calificacionesService = calificacionesService;
         }
 
         // GET: api/Calificaciones
@@ -41,6 +46,23 @@ namespace Parqueadero.Controllers
               return NotFound();
           }
             var calificaciones = await _context.Calificaciones.FindAsync(id);
+
+            if (calificaciones == null)
+            {
+                return NotFound();
+            }
+
+            return calificaciones;
+        }
+
+        [HttpGet("Clientes{id}")]
+        public async Task<ActionResult<IEnumerable<Calificaciones>>> GetCalificacionesPorcliente(long id)
+        {
+            if (_context.Calificaciones == null)
+            {
+                return NotFound();
+            }
+            var calificaciones = await _calificacionesService.GetCalificacionesPorcliente(id);
 
             if (calificaciones == null)
             {
@@ -84,16 +106,17 @@ namespace Parqueadero.Controllers
         // POST: api/Calificaciones
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Calificaciones>> PostCalificaciones(Calificaciones calificaciones)
+        public async Task<ActionResult<Calificaciones>> PostCalificaciones(CalificacionesDto calificaciones)
         {
           if (_context.Calificaciones == null)
           {
               return Problem("Entity set 'PqDBContext.Calificaciones'  is null.");
           }
-            _context.Calificaciones.Add(calificaciones);
+            Calificaciones calificacionesObject =_calificacionesService.ModelToDto(calificaciones);
+            _context.Calificaciones.Add(calificacionesObject);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCalificaciones", new { id = calificaciones.Id }, calificaciones);
+            return CreatedAtAction("GetCalificaciones", new { id = calificacionesObject.Id }, calificacionesObject);
         }
 
         // DELETE: api/Calificaciones/5

@@ -11,6 +11,6 @@ namespace Parqueadero.Data.Models
         public string CodigoVisita { get; set; }
         public long ClientId { get; set; }
         [ForeignKey(nameof(ClientId))]
-        public virtual Client Client { get; set; }
+        public virtual Client? Client { get; set; }
     }
 }
